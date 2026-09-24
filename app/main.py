@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Literal
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, EmailStr, Field
 
 from app import db
@@ -76,6 +77,10 @@ def create_app(db_path: str | Path | None = None) -> FastAPI:
         if row is None:
             raise HTTPException(404, "Не найдено")
         return dict(row)
+
+    @api.get("/", include_in_schema=False)
+    def root():
+        return RedirectResponse("/docs")
 
     @api.get("/health")
     def health():
