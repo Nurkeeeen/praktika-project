@@ -1,0 +1,35 @@
+name: Change Request
+description: Изменение базовой линии требований (baseline-v1)
+title: "[CR] "
+labels: ["type:change-request"]
+body:
+  - type: textarea
+    id: change
+    attributes:
+      label: Что меняется
+      placeholder: "Истории / НФТ (ID), было → стало"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Зачем
+      placeholder: "Кто попросил, какая проблема или новый факт (интервью, демо, закон)"
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Влияние
+      placeholder: "± Story Points, сдвиг вехи (недель), бюджет (₸), риски"
+    validations:
+      required: true
+  - type: dropdown
+    id: decider
+    attributes:
+      label: Кто решает (устав, ЛЗ 3)
+      options:
+        - "PM — укладывается в релиз без сдвига вех"
+        - "Спонсор — сдвиг вехи, бюджет > 10 % или границы скоупа"
+    validations:
+      required: true
