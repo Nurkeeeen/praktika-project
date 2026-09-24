@@ -1,0 +1,21 @@
+[project]
+name = "praktika"
+version = "0.1.0"
+description = "Система приёма и маршрутизации заявок студентов на практику и вакансий партнёров карьерного центра"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "B905"]  # Depends() в сигнатурах FastAPI; zip по спискам заведомо одной длины
+
+[tool.ruff.lint.per-file-ignores]
+"finance/tco_model.py" = ["E501"]  # строки-источники со ссылками
+"finance/generate_xlsx.py" = ["E501"]

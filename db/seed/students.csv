@@ -1,0 +1,41 @@
+id,full_name,email,phone,group_name,program,course_year,gpa,skills,languages,curator_id,consent_pd
+1,Сәрсен Тимур,student001@example.org,+7 700 000 0001,ИС-231,Информационные системы,3,2.68,C#;Git;REST API,kk;ru;en,1,1
+2,Смағұл Айым,student002@example.org,+7 700 000 0002,ИС-231,Информационные системы,3,3.25,Java;Linux;Pandas;Python;REST API;тестирование,kk;ru,1,1
+3,Қасым Ерлан,student003@example.org,+7 700 000 0003,DS-221,Data Science,4,3.93,Excel;Git;Jira;Pandas;SQL,kk;ru,4,1
+4,Смағұл Дана,student004@example.org,+7 700 000 0004,ИС-222,Информационные системы,4,2.43,Figma;Git;JavaScript;Python;английский B1,kk;ru;en,2,1
+5,Әбіл Дана,student005@example.org,+7 700 000 0005,ИС-232,Информационные системы,3,2.77,1С;Excel;Figma;Jira;английский B1,kk;ru;en,1,1
+6,Оспан Ильяс,student006@example.org,+7 700 000 0006,ИС-232,Информационные системы,3,2.76,Figma;Java;REST API;SQL,kk;ru;en,2,1
+7,Жұмабай Арман,student007@example.org,+7 700 000 0007,DS-223,Data Science,4,3.79,Agile/Scrum;Figma;JavaScript;Pandas;тестирование,kk;ru;en,4,1
+8,Сәрсен Диана,student008@example.org,+7 700 000 0008,ИС-233,Информационные системы,3,2.75,Agile/Scrum;Git;Java;Linux;Pandas;английский B1,kk;ru;en,1,1
+9,Мұқан Мадина,student009@example.org,+7 700 000 0009,ИС-233,Информационные системы,3,3.02,C#;Pandas;тестирование,kk;ru,1,1
+10,Кенже Данияр,student010@example.org,+7 700 000 0010,ИС-221,Информационные системы,4,2.8,Agile/Scrum;Linux;Python;тестирование,kk;ru,1,1
+11,Оспан Камила,student011@example.org,+7 700 000 0011,DS-231,Data Science,3,3.22,Agile/Scrum;Figma;Python,kk;ru;en,4,1
+12,Сейтқали Жансая,student012@example.org,+7 700 000 0012,DS-233,Data Science,3,3.91,Agile/Scrum;Git;Power BI,kk;ru;en,4,1
+13,Смағұл Айым,student013@example.org,+7 700 000 0013,ИС-222,Информационные системы,4,3.94,Docker;Java;Pandas;английский B1,kk;ru,2,1
+14,Тлеу Айгерім,student014@example.org,+7 700 000 0014,ИС-232,Информационные системы,3,2.34,Git;Java;Python;английский B1,kk;ru,1,1
+15,Әбіл Данияр,student015@example.org,+7 700 000 0015,ИС-231,Информационные системы,3,3.17,Agile/Scrum;Docker;JavaScript;Power BI;английский B1,kk;ru,1,1
+16,Тлеу Дана,student016@example.org,+7 700 000 0016,DS-221,Data Science,4,3.42,1С;C#;REST API;английский B1;тестирование,kk;ru;en,3,1
+17,Сәрсен Данияр,student017@example.org,+7 700 000 0017,ИС-221,Информационные системы,4,2.72,C#;JavaScript;Power BI;тестирование,kk;ru;en,2,1
+18,Нұржан Диана,student018@example.org,+7 700 000 0018,ИС-231,Информационные системы,3,2.39,Git;Java;Jira,kk;ru;en,2,1
+19,Төлеу Нұрлан,student019@example.org,+7 700 000 0019,ИС-221,Информационные системы,4,2.94,Docker;JavaScript;Linux;REST API;английский B1;тестирование,kk;ru,2,1
+20,Қасым Арман,student020@example.org,+7 700 000 0020,ИС-231,Информационные системы,3,3.28,1С;Figma;SQL,kk;ru,1,1
+21,Әбіл Мадина,student021@example.org,+7 700 000 0021,ИС-231,Информационные системы,3,3.31,Docker;Excel;Java;Pandas,kk;ru,1,1
+22,Төлеу Тимур,student022@example.org,+7 700 000 0022,DS-221,Data Science,4,3.44,Figma;Git;Java;Linux;Pandas,kk;ru,4,1
+23,Сейтқали Ильяс,student023@example.org,+7 700 000 0023,DS-233,Data Science,3,4.0,Git;JavaScript;Linux,kk;ru;en,4,1
+24,Ахмет Аружан,student024@example.org,+7 700 000 0024,ИС-231,Информационные системы,3,3.04,1С;Docker;Figma;Python;тестирование,kk;ru;en,1,1
+25,Төлеу Дана,student025@example.org,+7 700 000 0025,DS-233,Data Science,3,3.24,Agile/Scrum;Docker;Excel;Figma;JavaScript,kk;ru,4,1
+26,Төлеу Нұрлан,student026@example.org,+7 700 000 0026,DS-221,Data Science,4,3.38,Figma;Git;Pandas;Python;SQL,kk;ru,4,1
+27,Смағұл Әсел,student027@example.org,+7 700 000 0027,ИС-223,Информационные системы,4,2.32,Power BI;SQL;английский B1,kk;ru,1,1
+28,Сейтқали Аружан,student028@example.org,+7 700 000 0028,DS-232,Data Science,3,3.83,Java;JavaScript;английский B1,kk;ru,4,1
+29,Төлеу Жансая,student029@example.org,+7 700 000 0029,DS-231,Data Science,3,3.96,Jira;Python;REST API;английский B1,kk;ru,4,1
+30,Оспан Дана,student030@example.org,+7 700 000 0030,ИС-222,Информационные системы,4,3.78,Java;JavaScript;Jira;Pandas;Power BI;тестирование,kk;ru,1,1
+31,Бекқожа Данияр,student031@example.org,+7 700 000 0031,ИС-232,Информационные системы,3,3.77,1С;Figma;Pandas;REST API;английский B1,kk;ru,1,1
+32,Оспан Бауыржан,student032@example.org,+7 700 000 0032,ИС-222,Информационные системы,4,2.37,Docker;Figma;Linux;REST API;SQL;английский B1,kk;ru;en,1,1
+33,Сәрсен Әсел,student033@example.org,+7 700 000 0033,DS-231,Data Science,3,3.18,Figma;Git;REST API;английский B1,kk;ru,4,1
+34,Смағұл Аружан,student034@example.org,+7 700 000 0034,ИС-223,Информационные системы,4,2.99,Agile/Scrum;Docker;Figma;JavaScript;Power BI;тестирование,kk;ru,1,1
+35,Смағұл Әлібек,student035@example.org,+7 700 000 0035,DS-222,Data Science,4,2.79,1С;C#;Excel;Figma;Java;тестирование,kk;ru,3,1
+36,Смағұл Айым,student036@example.org,+7 700 000 0036,ИС-222,Информационные системы,4,2.46,Docker;Git;Java;JavaScript,kk;ru;en,1,1
+37,Нұржан Әсел,student037@example.org,+7 700 000 0037,DS-233,Data Science,3,3.28,Agile/Scrum;Figma;Git;Java;Pandas;английский B1,kk;ru;en,3,1
+38,Оспан Алихан,student038@example.org,+7 700 000 0038,DS-232,Data Science,3,2.39,Excel;Pandas;Power BI;тестирование,kk;ru;en,4,1
+39,Әбіл Диана,student039@example.org,+7 700 000 0039,DS-222,Data Science,4,3.83,Figma;Java;Linux;Power BI;REST API;тестирование,kk;ru,4,1
+40,Нұржан Айгерім,student040@example.org,+7 700 000 0040,ИС-223,Информационные системы,4,2.79,Agile/Scrum;C#;Figma;Git;тестирование,kk;ru;en,1,1

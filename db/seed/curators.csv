@@ -1,0 +1,5 @@
+id,full_name,email,department
+1,Куратор Демо Первый,curator1@example.org,Кафедра информационных систем
+2,Куратор Демо Второй,curator2@example.org,Кафедра информационных систем
+3,Куратор Демо Третий,curator3@example.org,Кафедра Data Science
+4,Куратор Демо Четвёртый,curator4@example.org,Кафедра Data Science

@@ -1,0 +1,26 @@
+name: Epic
+description: Крупный блок ценности, делится на Story
+title: "[ЗС-N] "
+labels: ["type:epic"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Цель эпика
+      placeholder: "Какую метрику из бизнес-кейса двигаем"
+    validations:
+      required: true
+  - type: textarea
+    id: stories
+    attributes:
+      label: Истории
+      placeholder: "- [ ] #"
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Приоритет
+      options: [High, Medium, Low]
+    validations:
+      required: true

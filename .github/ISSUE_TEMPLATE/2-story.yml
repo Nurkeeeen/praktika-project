@@ -1,0 +1,32 @@
+name: Story
+description: Пользовательская история с критериями приёмки
+title: "[ЗС-N] "
+labels: ["type:story"]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: История
+      placeholder: "Как <роль>, я хочу <действие>, чтобы <ценность>"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Критерии приёмки (Given–When–Then)
+      placeholder: "Given ...\nWhen ...\nThen ..."
+    validations:
+      required: false
+  - type: textarea
+    id: estimate
+    attributes:
+      label: Оценка (Story Points)
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Приоритет
+      options: [High, Medium, Low]
+    validations:
+      required: true

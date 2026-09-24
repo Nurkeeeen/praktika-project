@@ -1,0 +1,24 @@
+name: Task
+description: Техническая задача без прямой ценности для пользователя
+title: "[ЗС-N] "
+labels: ["type:task"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Что сделать
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Критерий готовности
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Приоритет
+      options: [High, Medium, Low]
+    validations:
+      required: true

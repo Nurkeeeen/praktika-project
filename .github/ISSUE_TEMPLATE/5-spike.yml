@@ -1,0 +1,25 @@
+name: Spike
+description: Исследование с ограничением по времени
+title: "[ЗС-N] "
+labels: ["type:spike"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Вопрос, на который отвечаем
+    validations:
+      required: true
+  - type: textarea
+    id: timebox
+    attributes:
+      label: Ограничение по времени
+      placeholder: "4 ч"
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Приоритет
+      options: [High, Medium, Low]
+    validations:
+      required: true
