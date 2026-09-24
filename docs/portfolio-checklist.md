@@ -8,8 +8,9 @@
 | 2 | Сравнение моделей поставки, ADR-001, рабочее пространство | `docs/adr/0001-*.md`, доска Projects | ✅ (доску создать) |
 | 3 | Бизнес-кейс, TCO/ROI-модель, устав, защита | `docs/lz3-business-case.md`, `finance/` | ✅ |
 | 3–15 | ADR-журнал (минимум 3 решения) | `docs/adr/` | ✅ 3 решения |
-| 4 | Матрица стейкхолдеров, план коммуникаций, 2 интервью | `docs/stakeholders.md`, `docs/interviews/` | ⬜ |
-| 4 | Story map, 15–20 историй в трекере, НФТ (≥ 12 измеримых) | `docs/story-map.png`, Issues, `docs/nfr.md` | ⬜ |
+| 4 | Матрица стейкхолдеров, план коммуникаций | `docs/lz4-requirements.md` | ✅ |
+| 4 | 2 интервью с пользователями | `docs/requirements/interviews/` | 🟡 сценарии готовы, провести до 01.10 |
+| 4 | Story map, 15–20 историй в трекере, НФТ (≥ 12 измеримых) | `docs/requirements/`, Issues | ✅ 20 историй, 18 НФТ; 🟡 занести в Issues |
 | 5 | WBS, план релизов, карта зависимостей, RACI, capacity | `docs/planning/` | ⬜ |
 | 6 | Монте-Карло прогноз сроков (notebook) | `analytics/monte_carlo.ipynb` | ⬜ |
 | 7 | RAID-журнал, модель угроз, чек-лист соответствия, отчёт Trivy/gitleaks | `docs/risk/` | ⬜ |

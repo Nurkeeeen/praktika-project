@@ -1,0 +1,29 @@
+name: Бэклог → Issues
+
+# Запуск вручную: Actions → «Бэклог → Issues» → Run workflow.
+# Создаёт метки, эпики и истории из docs/requirements/stories.yaml. Повторный запуск не плодит дубли.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Только показать, что будет создано"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Создать задачи
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/create_issues.py ${{ inputs.dry_run && '--dry-run' || '' }}

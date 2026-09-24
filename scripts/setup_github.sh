@@ -16,6 +16,7 @@ label "type:task"  "0E8A16" "Техническая задача"
 label "type:bug"   "D73A4A" "Ошибка"
 label "type:spike" "FBCA04" "Исследование с таймбоксом"
 label "type:adr"   "5319E7" "Архитектурное решение"
+label "type:change-request" "B60205" "Изменение базовой линии требований"
 # Приоритеты
 label "priority:high"   "B60205" "Высокий приоритет"
 label "priority:medium" "D93F0B" "Средний приоритет"

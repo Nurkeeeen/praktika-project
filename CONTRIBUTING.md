@@ -22,6 +22,8 @@
 3. Если меняется архитектура или процесс — новый ADR в `docs/adr/` по шаблону `0000-template.md`.
 4. Если менялись допущения финмодели — пересобрать `python finance/generate_xlsx.py` и
    `python scripts/build_lz3_docs.py`.
+5. Если менялись `docs/requirements/*.yaml` — пересобрать `python scripts/build_lz4_docs.py` (story map
+   пересобирается вместе с документом); изменение после тега `baseline-v1` — только через Change Request.
 
 ## Данные
 

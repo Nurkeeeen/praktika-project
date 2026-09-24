@@ -21,9 +21,10 @@ db/schema.sql   схема БД (SQLite); db/schema.postgres.sql — для пр
 db/seed/        демо-база: 40 студентов, 10 партнёров, 24 вакансии, 36 заявок (все данные вымышлены)
 db/market/      реальные вакансии PM с hh.kz из ЛЗ 1 и частотная таблица требований
 finance/        TCO/ROI-модель ЛЗ 3: tco_model.xlsx (формулы) + tco_model.py (тот же расчёт в коде)
-docs/           ADR, бизнес-кейс и устав (ЛЗ 3), карточка проекта, модель данных, файлы лабораторных
-scripts/        инициализация БД, генерация демо-данных, сборка документа ЛЗ 3, настройка GitHub
-tests/          pytest: API, жизненный цикл заявки, финмодель
+docs/           ADR, бизнес-кейс и устав (ЛЗ 3), требования (ЛЗ 4), модель данных, файлы лабораторных
+docs/requirements/  бэклог stories.yaml, НФТ nfr.yaml, story map, матрица стейкхолдеров, протоколы интервью
+scripts/        инициализация БД, демо-данные, сборка документов ЛЗ 3–4, story map, задачи и настройка GitHub
+tests/          pytest: API, жизненный цикл заявки, финмодель, бэклог и НФТ
 ```
 
 ## Быстрый старт
@@ -72,8 +73,17 @@ erDiagram
 | 1 | Карта компетенций, разбор провала, карточка проекта | [docs/labs/](docs/labs/), [docs/project-card.md](docs/project-card.md) |
 | 2 | Сравнение моделей поставки, ADR-001, рабочее пространство | [docs/adr/0001-delivery-model.md](docs/adr/0001-delivery-model.md) |
 | 3 | Бизнес-кейс, TCO/ROI-модель, устав | [docs/lz3-business-case.md](docs/lz3-business-case.md), [finance/](finance/) |
+| 4 | Стейкхолдеры, коммуникации, интервью, story map, бэклог (20 историй), 18 НФТ | [docs/lz4-requirements.md](docs/lz4-requirements.md), [docs/requirements/](docs/requirements/) |
 
 Полный чек-лист портфолио до недели 15 — [docs/portfolio-checklist.md](docs/portfolio-checklist.md).
+
+## Запуск прямо на GitHub
+
+- **Проверки (CI)** запускаются сами на каждый push и pull request: вкладка **Actions** → «CI».
+- **Бэклог в Issues:** Actions → «Бэклог → Issues» → Run workflow. Сначала с галочкой «Только показать»,
+  потом без неё — создаст эпики и 20 историй из `docs/requirements/stories.yaml`.
+- **API в браузере (Codespaces):** Code → Codespaces → Create codespace on main. После установки выполнить
+  `uvicorn app.main:app --host 0.0.0.0 --port 8000` — откроется вкладка, допишите к адресу `/docs`.
 
 ## Настройка на GitHub (один раз)
 
@@ -82,7 +92,8 @@ erDiagram
 3. `bash scripts/setup_github.sh` — метки типов задач, приоритетов, `зс-1…15` и защита `main` (нужен `gh`).
 4. Projects → New project → Board: статусы `Backlog, Ready, In Progress, In Review, Done`; поля
    Priority, Iteration (неделя ЗС), Estimate (Story Points), Role. Привязать к репозиторию.
-5. Settings → Features → включить Wiki и Discussions (по желанию); вставить ссылку на доску в таблицу выше.
+5. Actions → «Бэклог → Issues» (или локально `python scripts/create_issues.py`) — затем добавить задачи на доску.
+6. Settings → Features → включить Wiki и Discussions (по желанию); вставить ссылку на доску в таблицу выше.
 
 ## Персональные данные
 

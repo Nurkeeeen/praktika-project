@@ -10,15 +10,11 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from docx import Document
-from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
-from docx.shared import Cm, Pt
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "finance"))
+sys.path.insert(0, str(ROOT / "scripts"))
 import tco_model as m  # noqa: E402
+from docgen import Doc  # noqa: E402
 
 DOCX_OUT = ROOT / "docs" / "labs" / "ЛЗ3_Бизнес-кейс_устав_финмодель.docx"
 MD_OUT = ROOT / "docs" / "lz3-business-case.md"
@@ -46,18 +42,9 @@ BREAKEVEN = sum(c / (1 + m.P["discount_rate"]) ** t for t, c in enumerate(V3S.co
 # ----------------------------------------------------------------------------------------------
 # Содержание: список блоков (тип, данные)
 # ----------------------------------------------------------------------------------------------
-B: list[tuple] = []
-
-
-def title(t): B.append(("title", t))
-def sub(t): B.append(("sub", t))
-def h1(t): B.append(("h1", t))
-def h2(t): B.append(("h2", t))
-def p(t): B.append(("p", t))
-def note(t): B.append(("note", t))
-def bullets(items): B.append(("ul", items))
-def numbered(items): B.append(("ol", items))
-def table(head, rows): B.append(("table", head, rows))
+D = Doc()
+title, sub, h1, h2, p, note = D.title, D.sub, D.h1, D.h2, D.p, D.note
+bullets, numbered, table = D.bullets, D.numbered, D.table
 
 
 title("ЛЗ 3. Бизнес-кейс, устав и финансовая модель проекта «Практика»")
@@ -288,106 +275,7 @@ p("Согласно правилам курса: при подготовке ч�
   "Ответственность за содержание несёт команда.")
 
 
-# ----------------------------------------------------------------------------------------------
-# Рендеры
-# ----------------------------------------------------------------------------------------------
-def shade(cell, color: str) -> None:
-    tc_pr = cell._tc.get_or_add_tcPr()
-    shd = OxmlElement("w:shd")
-    shd.set(qn("w:val"), "clear")
-    shd.set(qn("w:color"), "auto")
-    shd.set(qn("w:fill"), color)
-    tc_pr.append(shd)
-
-
-def render_docx(path: Path) -> None:
-    doc = Document()
-    st = doc.styles["Normal"]
-    st.font.name, st.font.size = "Times New Roman", Pt(11)
-    st.element.rPr.rFonts.set(qn("w:eastAsia"), "Times New Roman")
-    for s in ("Heading 1", "Heading 2", "Title"):
-        hs = doc.styles[s]
-        hs.font.name, hs.font.bold = "Times New Roman", True
-        hs.font.color.rgb = None
-        hs.element.rPr.rFonts.set(qn("w:eastAsia"), "Times New Roman")
-    doc.styles["Heading 1"].font.size = Pt(14)
-    doc.styles["Heading 2"].font.size = Pt(12)
-    for sec in doc.sections:
-        sec.left_margin = sec.right_margin = Cm(2.54)
-    for blk in B:
-        kind = blk[0]
-        if kind == "title":
-            r = doc.add_paragraph().add_run(blk[1])
-            r.bold, r.font.size = True, Pt(14)
-        elif kind == "sub":
-            doc.add_paragraph(blk[1])
-        elif kind == "h1":
-            doc.add_heading(blk[1], level=1)
-        elif kind == "h2":
-            doc.add_heading(blk[1], level=2)
-        elif kind == "p":
-            doc.add_paragraph(blk[1])
-        elif kind == "note":
-            doc.add_paragraph().add_run(blk[1]).italic = True
-        elif kind in ("ul", "ol"):
-            for it in blk[1]:
-                doc.add_paragraph(it, style="List Bullet" if kind == "ul" else "List Number")
-        elif kind == "table":
-            head, rows = blk[1], blk[2]
-            t = doc.add_table(rows=1, cols=len(head))
-            t.style = "Table Grid"
-            t.alignment = WD_TABLE_ALIGNMENT.CENTER
-            for c, h in zip(t.rows[0].cells, head, strict=True):
-                c.text = ""
-                run = c.paragraphs[0].add_run(h)
-                run.bold = True
-                shade(c, "DDEBF7")
-            for row in rows:
-                cells = t.add_row().cells
-                for c, v in zip(cells, row, strict=True):
-                    c.text = str(v)
-            for row in t.rows:
-                for c in row.cells:
-                    for par in c.paragraphs:
-                        for run in par.runs:
-                            run.font.size = Pt(9.5)
-            doc.add_paragraph()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    doc.save(path)
-
-
-def render_md(path: Path) -> None:
-    out: list[str] = []
-    n = 0
-    for blk in B:
-        kind = blk[0]
-        if kind == "title":
-            out += [f"# {blk[1]}", ""]
-        elif kind == "sub":
-            out += [f"_{blk[1]}_", ""]
-        elif kind == "h1":
-            out += [f"## {blk[1]}", ""]
-        elif kind == "h2":
-            out += [f"### {blk[1]}", ""]
-        elif kind == "p":
-            out += [blk[1], ""]
-        elif kind == "note":
-            out += [f"> {blk[1]}", ""]
-        elif kind == "ul":
-            out += [f"- {it}" for it in blk[1]] + [""]
-        elif kind == "ol":
-            out += [f"{i}. {it}" for i, it in enumerate(blk[1], 1)] + [""]
-        elif kind == "table":
-            n += 1
-            head, rows = blk[1], blk[2]
-            esc = [str(h).replace("|", "\\|") for h in head]
-            out += ["| " + " | ".join(esc) + " |", "|" + "---|" * len(head)]
-            out += ["| " + " | ".join(str(v).replace("|", "\\|") for v in r) + " |" for r in rows]
-            out.append("")
-    path.write_text("\n".join(out), encoding="utf-8")
-
-
 if __name__ == "__main__":
-    render_docx(DOCX_OUT)
-    render_md(MD_OUT)
+    D.render_docx(DOCX_OUT)
+    D.render_md(MD_OUT)
     print(f"saved {DOCX_OUT}\nsaved {MD_OUT}")
