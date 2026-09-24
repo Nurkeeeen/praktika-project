@@ -77,6 +77,14 @@ erDiagram
 
 Полный чек-лист портфолио до недели 15 — [docs/portfolio-checklist.md](docs/portfolio-checklist.md).
 
+## Запуск прямо на GitHub
+
+- **Проверки (CI)** запускаются сами на каждый push и pull request: вкладка **Actions** → «CI».
+- **Бэклог в Issues:** Actions → «Бэклог → Issues» → Run workflow. Сначала с галочкой «Только показать»,
+  потом без неё — создаст эпики и 20 историй из `docs/requirements/stories.yaml`.
+- **API в браузере (Codespaces):** Code → Codespaces → Create codespace on main. После установки выполнить
+  `uvicorn app.main:app --host 0.0.0.0 --port 8000` — откроется вкладка, допишите к адресу `/docs`.
+
 ## Настройка на GitHub (один раз)
 
 1. Создать пустой репозиторий `praktika-project` на GitHub, добавить второго участника в collaborators.
@@ -84,7 +92,7 @@ erDiagram
 3. `bash scripts/setup_github.sh` — метки типов задач, приоритетов, `зс-1…15` и защита `main` (нужен `gh`).
 4. Projects → New project → Board: статусы `Backlog, Ready, In Progress, In Review, Done`; поля
    Priority, Iteration (неделя ЗС), Estimate (Story Points), Role. Привязать к репозиторию.
-5. `python scripts/create_issues.py` — эпики и 20 историй из бэклога в Issues; затем добавить их на доску.
+5. Actions → «Бэклог → Issues» (или локально `python scripts/create_issues.py`) — затем добавить задачи на доску.
 6. Settings → Features → включить Wiki и Discussions (по желанию); вставить ссылку на доску в таблицу выше.
 
 ## Персональные данные

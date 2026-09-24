@@ -1,0 +1,14 @@
+{
+  "name": "Практика",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "pip install -r requirements-dev.txt && python scripts/init_db.py",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "Практика API", "onAutoForward": "openBrowser" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "charliermarshall.ruff"]
+    }
+  }
+}
