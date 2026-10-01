@@ -5,6 +5,9 @@
 
 [![CI](../../actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
 
+**Сайт проекта:** https://nurkeeeen.github.io/praktika-project/ — вся работа в одном месте: лабораторные,
+калькулятор бизнес-кейса, бэклог, базы студентов и вакансий.
+
 | | |
 |---|---|
 | Заказчик | Методист карьерного центра (спонсор — руководитель центра) |
@@ -23,7 +26,8 @@ db/market/      реальные вакансии PM с hh.kz из ЛЗ 1 и ч�
 finance/        TCO/ROI-модель ЛЗ 3: tco_model.xlsx (формулы) + tco_model.py (тот же расчёт в коде)
 docs/           ADR, бизнес-кейс и устав (ЛЗ 3), требования (ЛЗ 4), модель данных, файлы лабораторных
 docs/requirements/  бэклог stories.yaml, НФТ nfr.yaml, story map, матрица стейкхолдеров, протоколы интервью
-scripts/        инициализация БД, демо-данные, сборка документов ЛЗ 3–4, story map, задачи и настройка GitHub
+site/           шаблон сайта-портфолио (HTML, CSS, JS); собирается scripts/build_site.py в _site/
+scripts/        инициализация БД, демо-данные, сборка документов ЛЗ 3–4 и сайта, story map, задачи и настройка GitHub
 tests/          pytest: API, жизненный цикл заявки, финмодель, бэклог и НФТ
 ```
 
@@ -78,6 +82,10 @@ erDiagram
 Полный чек-лист портфолио до недели 15 — [docs/portfolio-checklist.md](docs/portfolio-checklist.md).
 
 ## Запуск прямо на GitHub
+
+- **Сайт-портфолио** пересобирается и публикуется сам после каждого изменения `main` (workflow «Сайт (GitHub Pages)»).
+  Один раз включить: Settings → Pages → Source: **GitHub Actions**. Локально: `python scripts/build_site.py`,
+  затем `python -m http.server -d _site 8080` и открыть `http://127.0.0.1:8080`.
 
 - **Проверки (CI)** запускаются сами на каждый push и pull request: вкладка **Actions** → «CI».
 - **Бэклог в Issues:** Actions → «Бэклог → Issues» → Run workflow. Сначала с галочкой «Только показать»,
