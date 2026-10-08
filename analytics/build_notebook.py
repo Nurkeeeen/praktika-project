@@ -179,14 +179,24 @@ print(f"P50 = {fmt(ps[50])}, P85 = {fmt(ps[85])}")"""),
 
 Протокол заполняется командой в `analytics/planning_poker.csv`: каждый выбирает карту (1, 2, 3, 5, 8, 13) молча, вскрываем одновременно. Если разброс больше одной карты, автор самой высокой и самой низкой оценки объясняет причину, затем второй раунд. Ячейка ниже считает разброс, как только в таблице появятся оценки."""),
     code("""poker = list(csv.DictReader(open(ROOT / "analytics" / "planning_poker.csv", encoding="utf-8")))
+print("Оценка из ЛЗ 4 и независимая оценка AI (колонка ai_sp, подписана как оценка Claude):")
+for r in poker:
+    lz4, ai = int(r["sp_lz4"]), int(r["ai_sp"])
+    mark = "" if lz4 == ai else "  ← обсудить"
+    print(f"  {r['story']}: ЛЗ 4 = {lz4}, AI = {ai}{mark}")
+diff = [r["story"] for r in poker if r["sp_lz4"] != r["ai_sp"]]
+print(f"Расходятся {len(diff)} из {len(poker)}: {', '.join(diff)}")
+
 filled = [r for r in poker if r["round1_pm"] and r["round1_ba"]]
 if not filled:
-    print(f"Протокол ещё не заполнен: {len(poker)} историй ждут покера планирования.")
+    print(f"\\nГолосов команды пока нет: {len(poker)} историй ждут покера планирования.")
 else:
+    print("\\nПервый раунд команды:")
+    spread = []
     for r in filled:
-        a, b = int(r["round1_pm"]), int(r["round1_ba"])
-        print(f"{r['story']}: {a} / {b}, разброс {max(a, b) / min(a, b):.1f}× — {r['why_high'] or ''} {r['why_low'] or ''}")
-    spread = [max(int(r['round1_pm']), int(r['round1_ba'])) / min(int(r['round1_pm']), int(r['round1_ba'])) for r in filled]
+        a, b, ai = int(r["round1_pm"]), int(r["round1_ba"]), int(r["ai_sp"])
+        spread.append(max(a, b) / min(a, b))
+        print(f"  {r['story']}: Әлібек {a} / Нүркен {b} / AI {ai}, разброс {spread[-1]:.1f}×")
     print(f"Средний разброс первого раунда: {np.mean(spread):.2f}×")"""),
     md("## 7. Слайд «Когда будет готово» для заказчика"),
     code("""p_m4 = (mvp <= np.datetime64(DEADLINES["M4 · запуск 01.02.2027"])).mean()
