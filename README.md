@@ -28,7 +28,8 @@ docs/           ADR, бизнес-кейс и устав (ЛЗ 3), требов�
 docs/requirements/  бэклог stories.yaml, НФТ nfr.yaml, story map, матрица стейкхолдеров, протоколы интервью
 site/           шаблон сайта-портфолио (HTML, CSS, JS); собирается scripts/build_site.py в _site/
 scripts/        инициализация БД, демо-данные, сборка документов ЛЗ 3–4 и сайта, story map, задачи и настройка GitHub
-tests/          pytest: API, жизненный цикл заявки, финмодель, бэклог и НФТ
+analytics/      прогноз сроков Монте-Карло (notebook), данные throughput, покер планирования
+tests/          pytest: API, жизненный цикл заявки, финмодель, бэклог и НФТ, планирование, сайт
 ```
 
 ## Быстрый старт
@@ -78,6 +79,8 @@ erDiagram
 | 2 | Сравнение моделей поставки, ADR-001, рабочее пространство | [docs/adr/0001-delivery-model.md](docs/adr/0001-delivery-model.md) |
 | 3 | Бизнес-кейс, TCO/ROI-модель, устав | [docs/lz3-business-case.md](docs/lz3-business-case.md), [finance/](finance/) |
 | 4 | Стейкхолдеры, коммуникации, интервью, story map, бэклог (20 историй), 18 НФТ | [docs/lz4-requirements.md](docs/lz4-requirements.md), [docs/requirements/](docs/requirements/) |
+| 5 | WBS, план релизов, карта зависимостей, RACI, capacity | [docs/lz5-planning.md](docs/lz5-planning.md), [docs/planning/](docs/planning/) |
+| 6 | Прогноз сроков Монте-Карло, слайд для заказчика, покер планирования | [docs/lz6-forecast.md](docs/lz6-forecast.md), [analytics/monte_carlo.ipynb](analytics/monte_carlo.ipynb) |
 
 Полный чек-лист портфолио до недели 15 — [docs/portfolio-checklist.md](docs/portfolio-checklist.md).
 

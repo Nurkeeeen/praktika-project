@@ -23,7 +23,7 @@ def site():
 
 def test_site_has_all_labs_and_files(site):
     data = json.loads((site / "data.js").read_text(encoding="utf-8").removeprefix("window.SITE_DATA = ").rstrip(";\n"))
-    assert [lab["week"] for lab in data["labs"]] == [1, 2, 3, 4]
+    assert [lab["week"] for lab in data["labs"]] == [1, 2, 3, 4, 5, 6]
     assert all(lab["html"] for lab in data["labs"])
     for d in data["downloads"]:
         assert (site / d["file"]).exists(), d["file"]

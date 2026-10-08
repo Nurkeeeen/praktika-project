@@ -28,6 +28,8 @@ from docx.text.paragraph import Paragraph
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "finance"))
+sys.path.insert(0, str(ROOT / "docs" / "planning"))
+import planning as pl  # noqa: E402
 import tco_model as m  # noqa: E402
 
 SRC, OUT = ROOT / "site", ROOT / "_site"
@@ -36,6 +38,8 @@ LABS = [
     ("lz2", 2, "ЛЗ2_Модель_поставки_и_рабочее_пространство.docx"),
     ("lz3", 3, "ЛЗ3_Бизнес-кейс_устав_финмодель.docx"),
     ("lz4", 4, "ЛЗ4_Требования_story_map_НФТ.docx"),
+    ("lz5", 5, "ЛЗ5_WBS_релизы_зависимости.docx"),
+    ("lz6", 6, "ЛЗ6_Прогноз_сроков_Монте-Карло.docx"),
 ]
 BLIP = "{http://schemas.openxmlformats.org/drawingml/2006/main}blip"
 EMBED = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed"
@@ -161,6 +165,28 @@ def finance() -> dict:
     }
 
 
+def planning_data() -> dict:
+    scen = []
+    for hpw, cuts in pl.SCENARIOS:
+        need = pl.wbs_total() - (sum(h for _, h, _ in pl.SCOPE_CUTS) if cuts else 0)
+        scen.append({"name": f"{hpw} ч/нед" + (" + CR-001" if cuts else ""), "capacity": pl.capacity(hpw).total,
+                     "need": need})
+    return {"total": pl.wbs_total(), "capacity": pl.capacity().total, "required": pl.required_hours_per_week(),
+            "branches": [{"id": i["id"], "name": i["name"], "hours": sum(c["hours"] for c in i["children"])}
+                         for i in pl.WBS["items"]],
+            "increments": pl.TEAM["increments"], "milestones": pl.TEAM["milestones"],
+            "dependencies": pl.TEAM["dependencies"], "team": pl.TEAM["team"], "scenarios": scen,
+            "cuts": [{"id": w, "hours": h, "why": y} for w, h, y in pl.SCOPE_CUTS]}
+
+
+def forecast_data() -> dict:
+    import build_lz6_docs as f  # разбирает выходы выполненного notebook
+
+    return {"mvp": f.mvp, "cr": f.cr, "full": f.full, "n": int(f.n_mvp.group(1)), "sp": int(f.n_mvp.group(2)),
+            "det_date": f.det.group(1), "det_prob": f.det.group(2), "weeks_zero": f.hist.group(3),
+            "items": int(f.hist.group(1))}
+
+
 def git_sha() -> str:
     sha = os.environ.get("GITHUB_SHA")
     if sha:
@@ -197,6 +223,14 @@ def main() -> None:
         shutil.copy(src, files / src.name)
         downloads.append({"name": label, "file": f"files/{src.name}", "kind": kind})
     shutil.copy(ROOT / "docs" / "requirements" / "story-map.png", assets / "story-map.png")
+    pictures = [ROOT / "docs" / "planning" / f for f in ("wbs.png", "releases.png", "dependencies.png", "capacity.png")]
+    pictures += [ROOT / "analytics" / f for f in ("forecast-slide.png", "fig-forecast.png")]
+    for src in pictures:
+        shutil.copy(src, assets / src.name)
+    for src, kind, label in [(ROOT / "analytics" / "monte_carlo.ipynb", "Jupyter", "Notebook Монте-Карло (выполнен)"),
+                             (ROOT / "analytics" / "forecast-slide.png", "PNG", "Слайд «Когда будет готово»")]:
+        shutil.copy(src, files / src.name)
+        downloads.append({"name": label, "file": f"files/{src.name}", "kind": kind})
 
     req = ROOT / "docs" / "requirements"
     backlog = yaml.safe_load((req / "stories.yaml").read_text(encoding="utf-8"))
@@ -215,6 +249,8 @@ def main() -> None:
         "lz1": {"vacancies": read_csv(ROOT / "db" / "market" / "hh_pm_vacancies_2026-09-10.csv"),
                 "requirements": read_csv(ROOT / "db" / "market" / "pm_requirements_frequency.csv")},
         "finance": finance(),
+        "planning": planning_data(),
+        "forecast": forecast_data(),
         "backlog": backlog,
         "nfr": yaml.safe_load((req / "nfr.yaml").read_text(encoding="utf-8")),
         "adr": [{"id": p.stem[:4], "html": md_html(p)} for p in sorted((ROOT / "docs" / "adr").glob("0*.md"))

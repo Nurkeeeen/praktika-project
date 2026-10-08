@@ -7,3 +7,4 @@ python-docx>=1.1
 pyyaml>=6
 pillow>=10
 markdown>=3.5
+nbformat>=5

@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - run: pip install python-docx pyyaml markdown
+      - run: pip install python-docx pyyaml markdown nbformat
       - run: python scripts/build_site.py
       - uses: actions/upload-pages-artifact@v3
         with:

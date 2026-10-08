@@ -323,6 +323,77 @@
     draw();
   }
 
+  /* ---------------- ЛЗ 5 ---------------- */
+  function renderLz5() {
+    const P = D.planning;
+    const cov = P.capacity / P.total;
+    const ms = Object.fromEntries(P.milestones.map((m) => [m.id, m]));
+    const owner = Object.fromEntries(P.team.map((t) => [t.id, t.name]));
+    const dmy = (iso) => iso.split("-").reverse().join(".");
+    $("#lz5").innerHTML = header("lz5", "Неделя 5", "WBS, план релизов и карта зависимостей",
+      "Вся оставшаяся работа разложена в WBS до 3-го уровня, семестр нарезан на 3 инкремента с вехами, найдены 12 внешних зависимостей с владельцами и датами. Расчёт capacity показал, что команда из двух человек при 10 часах в неделю успевает только половину.") +
+      tiles([
+        { label: "Осталось работы по WBS", value: Math.round(P.total) + " ч", hint: "21 пакет работ 3-го уровня" },
+        { label: "Capacity при 10 ч/нед", value: Math.round(P.capacity) + " ч", hint: `покрывает ${Math.round(cov * 100)} % работы` },
+        { label: "Нужно, чтобы успеть всё", value: P.required.toFixed(0) + " ч/нед", hint: "на каждого участника" },
+        { label: "Внешних зависимостей", value: P.dependencies.length, hint: "у каждой есть владелец и дата" },
+      ]) +
+      `<figure class="card figure"><a href="assets/wbs.png" target="_blank" rel="noopener"><img src="assets/wbs.png" alt="WBS проекта до 3-го уровня" loading="lazy"></a>
+        <figcaption>WBS: серые пакеты сделаны, жёлтые в работе, белые впереди. Нажмите, чтобы открыть крупно.</figcaption></figure>
+      <h3 class="sub">План релизов</h3>
+      <figure class="card figure"><img src="assets/releases.png" alt="Три инкремента и вехи M1–M4 на шкале времени" loading="lazy"></figure>
+      <div class="grid two" style="margin-top:14px">${P.increments.map((inc) => `<div class="card">
+        <div class="eyebrow">Инкремент ${inc.id} · недели ${inc.weeks[0]}–${inc.weeks[1]} · веха ${inc.milestone} ${dmy(ms[inc.milestone].date)}</div>
+        <h3 class="sub" style="margin:4px 0 8px">${esc(inc.name)}</h3><p style="margin:0 0 8px;color:var(--ink-2)">${esc(inc.goal)}</p>
+        <div style="font-size:13px;color:var(--muted)">Истории: ${inc.stories.join(", ")}</div>
+        <ul style="padding-left:18px;margin:8px 0 0">${inc.done.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
+      <h3 class="sub">Внешние зависимости</h3>
+      <figure class="card figure"><img src="assets/dependencies.png" alt="Даты подтверждения зависимостей относительно вех" loading="lazy"></figure>
+      <div style="height:12px"></div>
+      ${table([
+        { label: "ID", key: "id", cls: () => "nowrap" }, { label: "От кого", key: "party" }, { label: "Что нужно", key: "what" },
+        { label: "Владелец", get: (r) => owner[r.owner] }, { label: "До", get: (r) => dmy(r.confirm_by), cls: () => "nowrap" },
+        { label: "Блокирует", key: "blocks" },
+      ], P.dependencies, { scroll: true })}
+      <h3 class="sub">Capacity: сколько часов есть на самом деле</h3>
+      <div class="grid two">
+        <figure class="card figure"><img src="assets/capacity.png" alt="Часы по инкрементам: нужно и есть" loading="lazy"></figure>
+        <div>${table([
+          { label: "Сценарий", key: "name" }, { label: "Есть, ч", num: true, get: (r) => Math.round(r.capacity) },
+          { label: "Нужно, ч", num: true, get: (r) => Math.round(r.need) },
+          { label: "Покрытие", num: true, get: (r) => Math.round(r.capacity / r.need * 100) + " %", cls: (r) => (r.capacity < r.need ? "neg" : "") },
+        ], P.scenarios)}
+        <p class="lead" style="font-size:14px;margin-top:10px">Решение: 15 ч в неделю на человека, Change Request CR-001 убирает ${P.cuts.reduce((a, c) => a + c.hours, 0)} ч из семестра, остаток закрывает третий участник команды.</p></div>
+      </div>
+      ${report("lz5")}`;
+  }
+
+  /* ---------------- ЛЗ 6 ---------------- */
+  function renderLz6() {
+    const F = D.forecast;
+    const row = (label, x) => [label, x.ps["50"], x.ps["70"], x.ps["85"], x.ps["95"], x.probs.M3, x.probs.M4];
+    $("#lz6").innerHTML = header("lz6", "Неделя 6", "Вероятностный прогноз сроков (Монте-Карло)",
+      `10 000 сценариев на реальной истории throughput небольшой команды (${F.items} задач за год) с учётом нашего календаря. Ответ — диапазон с вероятностями, а не одна дата.`) +
+      tiles([
+        { label: "MVP готов с вероятностью 50 %", value: F.mvp.ps["50"], hint: `${F.n} историй, ${F.sp} SP` },
+        { label: "с вероятностью 85 %", value: F.mvp.ps["85"], hint: "дата для обещаний заказчику" },
+        { label: "Успеть к запуску 01.02.2027", value: F.mvp.probs.M4, hint: "при текущем плане" },
+        { label: "Детерминированный план", value: F.det_date, hint: `вероятность по симуляции — ${F.det_prob}` },
+      ]) +
+      `<figure class="card figure"><a href="assets/forecast-slide.png" target="_blank" rel="noopener"><img src="assets/forecast-slide.png" alt="Слайд для заказчика: когда будет готов MVP" loading="lazy"></a>
+        <figcaption>Слайд «Когда будет готово» для методиста и спонсора.</figcaption></figure>
+      <h3 class="sub">Распределение даты готовности</h3>
+      <figure class="card figure"><img src="assets/fig-forecast.png" alt="Гистограмма и кумулятивная кривая даты готовности MVP" loading="lazy"></figure>
+      <div style="height:12px"></div>
+      ${table([{ label: "Сценарий", key: 0 }, { label: "P50", key: 1 }, { label: "P70", key: 2 }, { label: "P85", key: 3 },
+        { label: "P95", key: 4 }, { label: "Успеть к 18.12", key: 5, num: true }, { label: "Успеть к 01.02", key: 6, num: true }],
+        [row(`MVP, ${F.n} историй`, F.mvp), row(`MVP после CR-001, ${F.n - 1}`, F.cr), row("Весь бэклог, 20 историй", F.full)])}
+      <p class="lead" style="font-size:14px;margin-top:10px">Почему план и симуляция расходятся: в ${F.weeks_zero} недель истории не закрыто ни одной задачи, а детерминированный план считает по средней скорости без пауз, без сессии и без ожидания ответов от ИТ-отдела и юриста. Throughput пока заимствован; после двух спринтов (ЗС 9) пересчитаем на своих данных.</p>
+      <p><a class="btn" href="files/monte_carlo.ipynb" download>Скачать notebook ↓</a>
+         <a class="btn" href="${repoUrl}/blob/main/analytics/monte_carlo.ipynb" target="_blank" rel="noopener">Открыть на GitHub ↗</a></p>
+      ${report("lz6")}`;
+  }
+
   /* ---------------- Базы данных ---------------- */
   function renderDb() {
     const db = D.db;
@@ -444,6 +515,8 @@ python -m uvicorn app.main:app --port 8000</code></pre>
   renderLz2();
   renderLz3();
   renderLz4();
+  renderLz5();
+  renderLz6();
   renderDb();
   renderAdr();
   renderFiles();
