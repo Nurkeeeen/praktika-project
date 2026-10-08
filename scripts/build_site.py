@@ -240,7 +240,7 @@ def main() -> None:
             "repo": os.environ.get("GITHUB_REPOSITORY", "Nurkeeeen/praktika-project"),
             "built": date.today().isoformat(), "sha": git_sha(),
             "team": [{"name": "Бекмағанбет Әлібек", "role": "PM, коммуникация с заказчиком, разработка"},
-                     {"name": "Зият Нүркен", "role": "Аналитика и требования, тестирование и CI"}],
+                     {"name": "Зият Нұркен", "role": "Аналитика и требования, тестирование и CI"}],
         },
         "checklist": checklist(),
         "projectCard": md_html(ROOT / "docs" / "project-card.md"),

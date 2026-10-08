@@ -196,7 +196,7 @@ else:
     for r in filled:
         a, b, ai = int(r["round1_pm"]), int(r["round1_ba"]), int(r["ai_sp"])
         spread.append(max(a, b) / min(a, b))
-        print(f"  {r['story']}: Әлібек {a} / Нүркен {b} / AI {ai}, разброс {spread[-1]:.1f}×")
+        print(f"  {r['story']}: Әлібек {a} / Нұркен {b} / AI {ai}, разброс {spread[-1]:.1f}×")
     print(f"Средний разброс первого раунда: {np.mean(spread):.2f}×")"""),
     md("## 7. Слайд «Когда будет готово» для заказчика"),
     code("""p_m4 = (mvp <= np.datetime64(DEADLINES["M4 · запуск 01.02.2027"])).mean()
