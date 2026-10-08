@@ -19,3 +19,7 @@ ignore = ["B008", "B905"]  # Depends() в сигнатурах FastAPI; zip по
 [tool.ruff.lint.per-file-ignores]
 "finance/tco_model.py" = ["E501"]  # строки-источники со ссылками
 "finance/generate_xlsx.py" = ["E501"]
+"scripts/build_lz*_docs.py" = ["E501"]  # текст отчётов
+"docs/planning/*.py" = ["E501"]
+"analytics/build_notebook.py" = ["E501"]  # текст и код ячеек notebook
+"analytics/*.ipynb" = ["E501"]

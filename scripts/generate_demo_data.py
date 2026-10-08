@@ -134,6 +134,7 @@ def main() -> None:
         app_id += 1
         path = rnd.choices(paths, weights)[0]
         t = date.fromisoformat(vac[10]) - timedelta(days=rnd.randint(5, 25))
+        t = min(t, TODAY - timedelta(days=4 * len(path)))  # заявки только в прошлом относительно TODAY
         submitted = t
         prev = None
         for step in path:
@@ -141,7 +142,7 @@ def main() -> None:
             who = "student" if step in ("submitted", "withdrawn") else "methodist"
             history.append([hist_id, app_id, prev, step, who, f"{t.isoformat()} 10:00:00", None])
             prev = step
-            t += timedelta(days=rnd.randint(1, 6))
+            t = min(t + timedelta(days=rnd.randint(1, 6)), TODAY)
         applications.append([app_id, st[0], vac[0], path[-1], f"{submitted.isoformat()} 10:00:00",
                              history[-1][5], None])
         if path[-1] == "accepted":

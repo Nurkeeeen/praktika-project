@@ -11,8 +11,9 @@
 | 4 | Матрица стейкхолдеров, план коммуникаций | `docs/lz4-requirements.md` | ✅ |
 | 4 | 2 интервью с пользователями | `docs/requirements/interviews/` | 🟡 сценарии готовы, провести до 01.10 |
 | 4 | Story map, 15–20 историй в трекере, НФТ (≥ 12 измеримых) | `docs/requirements/`, Issues | ✅ 20 историй, 18 НФТ; 🟡 занести в Issues |
-| 5 | WBS, план релизов, карта зависимостей, RACI, capacity | `docs/planning/` | ⬜ |
-| 6 | Монте-Карло прогноз сроков (notebook) | `analytics/monte_carlo.ipynb` | ⬜ |
+| 5 | WBS, план релизов, карта зависимостей, RACI, capacity | `docs/lz5-planning.md`, `docs/planning/` | ✅ |
+| 6 | Монте-Карло прогноз сроков (notebook) и слайд | `analytics/monte_carlo.ipynb`, `docs/lz6-forecast.md` | ✅ |
+| 6 | Покер планирования на 10 историях | `analytics/planning_poker.csv` | 🟡 шаблон готов, провести командой |
 | 7 | RAID-журнал, модель угроз, чек-лист соответствия, отчёт Trivy/gitleaks | `docs/risk/` | ⬜ |
 | 8 | SoW, SLA/SLO, бюджет и юнит-экономика | `docs/contract/` | ⬜ |
 | 9 | Метрики потока за 2 спринта, протоколы ретро | `docs/sprints/` | ⬜ |

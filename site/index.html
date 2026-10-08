@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Практика — портфолио проекта</title>
+  <meta name="description" content="Сквозной проект курса «Управление IT-проектами»: лабораторные, бизнес-кейс, требования и базы данных системы «Практика».">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232a78d6'/><text x='16' y='22' font-size='17' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'>П</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#overview"><span class="brand-mark">П</span><span>Практика</span></a>
+    <span class="spacer"></span>
+    <a class="icon-btn hide-sm" id="repo-link" href="#" target="_blank" rel="noopener">GitHub</a>
+    <button class="icon-btn" id="theme-btn" type="button" aria-label="Переключить тему">◐ Тема</button>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="nav">
+      <a href="#overview"><span class="nav-num">◎</span>Обзор</a>
+      <div class="group">Лабораторные</div>
+      <a href="#lz1"><span class="nav-num">1</span>Рынок труда</a>
+      <a href="#lz2"><span class="nav-num">2</span>Модель поставки</a>
+      <a href="#lz3"><span class="nav-num">3</span>Бизнес-кейс</a>
+      <a href="#lz4"><span class="nav-num">4</span>Требования</a>
+      <a href="#lz5"><span class="nav-num">5</span>WBS и релизы</a>
+      <a href="#lz6"><span class="nav-num">6</span>Прогноз сроков</a>
+      <div class="group">Проект</div>
+      <a href="#db"><span class="nav-num">▦</span>Базы данных</a>
+      <a href="#adr"><span class="nav-num">✓</span>Решения (ADR)</a>
+      <a href="#files"><span class="nav-num">↓</span>Файлы</a>
+      <a href="#run"><span class="nav-num">▶</span>Как запустить</a>
+    </nav>
+
+    <main>
+      <section class="block" id="overview"></section>
+      <section class="block" id="lz1"></section>
+      <section class="block" id="lz2"></section>
+      <section class="block" id="lz3"></section>
+      <section class="block" id="lz4"></section>
+      <section class="block" id="lz5"></section>
+      <section class="block" id="lz6"></section>
+      <section class="block" id="db"></section>
+      <section class="block" id="adr"></section>
+      <section class="block" id="files"></section>
+      <section class="block" id="run"></section>
+      <footer class="footer" id="footer"></footer>
+    </main>
+  </div>
+  <div class="tooltip" id="tooltip" role="status"></div>
+
+  <script src="data.js"></script>
+  <script src="model.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
